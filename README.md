@@ -1,2 +1,3 @@
-# dochome
-documents in working
+## Documents in working
+
+#### Copyrights &copy; Philip Wu
