@@ -25,10 +25,8 @@ Date
 3.3. [External interface](#3.3.)  
 3.4. [Non-functional](#3.4.)  
 4. [Supporting information](#4.)  
-- Appendix A.	[Terminology](#0.1.)  
-- Appendix B.	[Disease-Specific Algorithm](#0.2.)  
-- Appendix C.	[TIFF Tag Code](#0.3.)  
-- Appendix D.	[An Exmaple of Event Handler Mechanism](#0.4.)  
+- Appendix A.	[References](#0.1.)  
+- Appendix B.	[Throughput time of Hscan vesion 0](#0.2.)  
 
 ## 1. Introduction <a class="anchor" id="1."></a>
 Hscan (an abbreviation for Heuristic Scanning software) is a scanning software to deploy AIxMed patent technology on scanner platform of digital microscopy instrument.  At present, Hscan version 0 is an engineering software for the purpose of internal analysis and field trial.
@@ -64,10 +62,27 @@ Based on the user needs defined in 'Q-POC mk11 User Requirements - AIxMed/Huron'
     + 2D: Code 128; Codabar
     + 3D: PDF 417; Data Matrix
 ### 2.2. Gap analysis <a class="anchor" id="2.2."></a>
+In order to meet the user requirements, we define the focus area of this milestone of software requirements refer to key attributes in user requirement document, and identify the discrepancies between current statas and desired states, and the actions needed to approach them, as follows.
+| Focus Area | Desired Feature | Current State | Action Plan |
+|------------|-----------------|---------------|-------------|
+| Quality | digital images are available for inhouse AI model inference  | Good/Fair rate (according to cytotech review on UPMC pilot): |- improve bounding-box model |
+|  |  |98.63% (Good: 346, Fair: 85, Total: 437)  |  |
+|  |  | with manually remove false focus dots   |  |
+| Time-to-Result | minimum of 10 cytology slides per hour | refer to [Throughput time](#0.2.) for details | + 40x scan improvement |
+|  |  |  | + strip image process |
+| Ease-of-Use | recognize specified specimen information | zxing library (Apache License 2.0) supprted Code 128, Codabar, PDF 417, Data Matrix| n.a. |
+| Ease-of-use | minumum of 1,000 scanned slides can be stored | more than 3,000 scanned slides (1.2GB per slide image) can be stored |
+### Throughput time of Hscan version 0 <a class="anchor" id="0.2."></a>
+The scan time 
+heuristic batch scan, separate layer images, 02:31:25, average 12:37, 22.5x23.3mm 24 focus dots
+heuristic batch scan, stack image, 04:51:13, average 24:16
+single layer batch scan, single layer image, 00:45:16, average 03:47
 
-## Revision History
-| Version | Date | Author | Description |
-|---------|------|--------|----------|
-| 0.01 | 2024-04-17 | Philip Wu | Initial draft |
-| 0.02 | 2022-12-27 | Philip Wu | updated scanning workflow and modified accordingly |
+## Revision History  
+ Version | Date | Author | Description 
+---------|:----:|:------:|----------
+ 0.01 | 2024-04-17 | Philip Wu | Initial draft 
+ 0.02 |  |  |  
+
 ### Copyright &copy; 2022-2024, AIxMed Inc.
+
