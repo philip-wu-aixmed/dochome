@@ -76,6 +76,7 @@ In order to meet the user requirements, we define the focus area of this milesto
 The scan time 
 heuristic batch scan, separate layer images, 02:31:25, average 12:37, 22.5x23.3mm 24 focus dots
 heuristic batch scan, stack image, 04:51:13, average 24:16
+multiple slices scan. separate layer images, 02:34:08, average 12:50
 single layer batch scan, single layer image, 00:45:16, average 03:47
 
 ## Revision History  
