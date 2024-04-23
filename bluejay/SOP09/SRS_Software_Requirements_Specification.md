@@ -29,7 +29,8 @@ Date
 - Appendix B.	[Throughput time of Hscan vesion 0](#0.2.)  
 
 ## 1. Introduction <a class="anchor" id="1."></a>
-Hscan (an abbreviation for Heuristic Scanning software) is a scanning software to deploy AIxMed patent technology on scanner platform of digital microscopy instrument.  At present, Hscan version 0 is an engineering software for the purpose of internal analysis and field trial.
+The major purpose of the subsystem Smart Scanner Instrument of DCS (AIxMed Digital Cytology System) is to produce a WSI (whole slide image) of a liquid-based prepared glass slide of a cytology specimen.  
+Hscan (Heuristic Scanning software) is a scanning software to deploy AIxMed patent technology on scanner platform of smart scanner instrument.  At present, Hscan version 0 is an engineering software for the purpose of internal analysis and field trial.
 ### 1.1. Purpose <a class="anchor" id="1.1."></a>
 Hscan aims for producing good quality of whole slide images available to AIxMed inhouse AI model inference by the implementation of the heuristic scan method as disclosed in [AIxMED patent US11416990B1]
 ### 1.2. Intended use and target audience <a class="anchor" id="1.2."></a>
@@ -72,12 +73,28 @@ In order to meet the user requirements, we define the focus area of this milesto
 |  |  |  | + strip image process |
 | Ease-of-Use | recognize specified specimen information | zxing library (Apache License 2.0) supprted Code 128, Codabar, PDF 417, Data Matrix| n.a. |
 | Ease-of-use | minumum of 1,000 scanned slides can be stored | more than 3,000 scanned slides (1.2GB per slide image) can be stored |
-### Throughput time of Hscan version 0 <a class="anchor" id="0.2."></a>
-The scan time 
-heuristic batch scan, separate layer images, 02:31:25, average 12:37, 22.5x23.3mm 24 focus dots
-heuristic batch scan, stack image, 04:51:13, average 24:16
-multiple slices scan. separate layer images, 02:34:08, average 12:50
-single layer batch scan, single layer image, 00:45:16, average 03:47
+### Appendix B: Throughput time of Hscan version 0 <a class="anchor" id="0.2."></a>
+The scan time consumed on Bluejay #101 using Hscan version 0 listed below is for a benchmark of current status.  
+ Scan mode | Output TIF File | Batch Scan Time | Scan Time per Slide | Slide Info     
+---------|:----:|:------:|:------:|-----
+heuristic batch scan | separate layer images | 02:31:25 | 12:37 | Thinprep non-gyn; ROI: 22.5x23.3mm; focus dots: 24
+heuristic batch scan | stack image | 04:51:13 | 24:16 | Thinprep non-gyn; ROI: 22.5x23.3mm; focus dots: 24  
+multiple(7) slices batch scan | separate layer images | 02:34:08 | 12:50 | Thinprep non-gyn; ROI: 22.5x23.3mm; focus dots: 24  
+single layer batch scan | single layer image | 00:45:16 | 03:47 | Thinprep non-gyn; ROI: 22.5x23.3mm; focus dots: 24  
+
+The Bluejay scanner contains 3 objective lens, 2x 4x 20x repectively, the Hscan scan time can be estimated calculation based on following consumed time on each component and relavant slide information.  
+Lens | Scan phase | Estimated time (per slide) | Scan mode | ROI size
+:--:|:--:|:--:|----|----
+2x | preview/label scan | 00:17 |   |   
+4x | low-mag image scan | 01:30 |   | ROI: 23.4x22.6mm  
+20x | focusing    | 00:50 |  | 2 seconds per focus dot
+20x | high-mag image scan | 01:30 | single layer | ROI: 23.4x22.6mm  
+20x |    | 04:10 | per layer of stack image | ROI: 23.4x22.6mm  
+ -- | output tif file | 00:02 | single layer | ROI: 23.4x22.6mm  
+ -- |                 | 01:00 | per player of stack image | ROI: 23.4x22.6mm   
+
+Example: to estimate the scan time for multiple (7) layers scan of non-gyn slide using 25 focus dots and output single layer TIF file for each layer, can be calculated as:  
+00:17 + 01:30 + 00:50 + (01:30+00:02)x7 = 13:21  
 
 ## Revision History  
  Version | Date | Author | Description 
